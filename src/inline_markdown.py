@@ -91,4 +91,3 @@ def text_to_textnodes(text: str) -> list[TextNode]:
     text_nodes = split_nodes_image(text_nodes)
     text_nodes = split_nodes_link(text_nodes)
     return text_nodes
-
