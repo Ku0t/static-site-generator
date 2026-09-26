@@ -76,3 +76,11 @@ def text_to_children(text:str) -> list[HTMLNode]:
     text_nodes = text_to_textnodes(text)
     children = list(map(text_node_to_html_node, text_nodes))
     return children
+
+def extract_title(markdown: str) -> str:
+    nodes = markdown_to_html_node(markdown)
+    for node in nodes.children:
+        if node.tag == "h1":
+            node_children = node.children
+            return node_children[0].value
+        raise Exception("There is no Title")
