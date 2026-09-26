@@ -7,7 +7,7 @@ src_path_static: str = "./static"
 dest_path_public: str = "./docs"
 content_path: str = "./content"
 template_path: str = "./template.html"
-dest_path: str = "./public"
+dest_path: str = "./docs"
 default_basepath: str = "/"
 
 
