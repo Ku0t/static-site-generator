@@ -1,40 +1,30 @@
-import os, shutil
+from asyncio import base_subprocess
+import os, shutil, sys
 from copystatic import copy_files_recursive
-from generate import generate_page, generate_pages_recursive
+from generate import generate_pages_recursive
 
-src_path_static = "./static"
-dest_path_public = "./public"
-content = "./content"
-template_html = "./template.html"
-dest_path = "./public"
-# content_md = "./content/index.md"
-# template_html = "./template.html"
-# dest_path_index = "./public/index.html"
-
-# glorfindel_md = "./content/blog/glorfindel/index.md"
-# majesty_md = "./content/blog/majesty/index.md"
-# tom_md = "./content/blog/tom/index.md"
-# contact_md = "./content/contact/index.md"
-
-# dest_path_glorfindel = "./public/blog/glorfindel/index.html"
-# dest_path_majesty = "./public/blog/majesty/index.html"
-# dest_path_tom = "./public/blog/tom/index.html"
-# dest_path_contact = "./public/contact/index.html"
+src_path_static: str = "./static"
+dest_path_public: str = "./docs"
+content_path: str = "./content"
+template_path: str = "./template.html"
+dest_path: str = "./public"
+default_basepath: str = "/"
 
 
 def main() -> None:
+    basepath = default_basepath
+    if len(sys.argv) > 1:
+        basepath: str = sys.argv[1]
+    
     print("Deleting public directory...")
     if os.path.exists(dest_path_public):
         shutil.rmtree(dest_path_public)
 
     print("Copying static files to public directory...")
     copy_files_recursive(src_path_static, dest_path_public)
-    generate_pages_recursive(content, template_html, dest_path)
-    # generate_page(content_md, template_html, dest_path_index)
-    # generate_page(glorfindel_md, template_html, dest_path_glorfindel)
-    # generate_page(majesty_md, template_html, dest_path_majesty)
-    # generate_page(tom_md, template_html, dest_path_tom)
-    # generate_page(contact_md, template_html, dest_path_contact)
+
+    print("Generating content...")
+    generate_pages_recursive(content_path, template_path, dest_path, basepath)
 
 if __name__ == "__main__":
     main()
