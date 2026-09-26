@@ -7,7 +7,6 @@ src_path_static: str = "./static"
 dest_path_public: str = "./docs"
 content_path: str = "./content"
 template_path: str = "./template.html"
-dest_path: str = "./docs"
 default_basepath: str = "/"
 
 
@@ -24,7 +23,7 @@ def main() -> None:
     copy_files_recursive(src_path_static, dest_path_public)
 
     print("Generating content...")
-    generate_pages_recursive(content_path, template_path, dest_path, basepath)
+    generate_pages_recursive(content_path, template_path, dest_path_public, basepath)
 
 if __name__ == "__main__":
     main()
